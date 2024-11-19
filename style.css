@@ -1,3 +1,7 @@
+:root {
+    --book-colour: #367464;
+}
+
 *,
 *::before,
 *::after {
@@ -11,6 +15,10 @@
 body {
     -webkit-font-smoothing: antialiased;
     font-family: "Roboto", sans-serif;
+    background: #1f4037;
+    background: -webkit-linear-gradient(to top, #99f2c8, #1f4037);
+    background: linear-gradient(to top, #99f2c8, #1f4037);
+    min-height: 100vh;
 }
 
 img,
@@ -50,4 +58,27 @@ h4,
 h5,
 h6 {
     text-wrap: balance;
+}
+
+.container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+    padding: 20px;
+}
+
+.book {
+    background-color: var(--book-colour);
+    color: white;
+    padding: 20px;
+    border-radius: 20px;
+    border: 5px solid white;
+    display: grid;
+    gap: 10px;
+    text-align: right;
+    min-height: 200px;
+}
+
+.book h1 {
+    font-size: 1.5rem;
 }
