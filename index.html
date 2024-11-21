@@ -14,12 +14,32 @@
 </head>
 
 <body>
+    <header>
+        <button id="btn_newBook">New Book</button>
+    </header>
 
     <div class="container" id="container">
 
     </div>
 
-    <script src="script.js"></script>
+    <div class="modal" id="modal">
+        <form class="modal-content" onsubmit="submit_newBook(event)">
+            <h1>New Book</h1>
+            <input type="text" placeholder="title" id="input_title" required>
+            <input type="text" placeholder="author" id="input_author" required>
+            <div>
+                <label for="input_pageCount">Page Count:</label>
+                <input type="number" id="input_pageCount">
+            </div>
+            <div>
+                <label for="checkbox_hasRead">Has Read:</label>
+                <input type="checkbox" id="checkbox_hasRead">
+            </div>
+            <button id="btn_addBook" class="btn_addBook">Add</button>
+        </form>
+    </div>
+
+    <script src=" script.js"></script>
 </body>
 
 </html>

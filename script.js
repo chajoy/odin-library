@@ -1,5 +1,26 @@
 const container = document.querySelector(`#container`);
+const modal = document.getElementById(`modal`);
 const myLibrary = [];
+
+document.getElementById(`btn_newBook`).addEventListener(`click`, () => {
+    modal.style.display = `grid`;
+})
+
+function submit_newBook(e) {
+    e.preventDefault();
+    let title = document.getElementById(`input_title`).value;
+    let author = document.getElementById(`input_author`).value;
+    let pages = document.getElementById(`input_pageCount`).value;
+    let hasRead = document.getElementById(`checkbox_hasRead`).checked;
+    addBookToLibrary(title, author, pages, hasRead);
+    modal.style.display = `none`;
+}
+
+window.addEventListener(`click`, (e) => {
+    if (e.target === modal) {
+        modal.style.display = `none`;
+    }
+})
 
 class Book {
     constructor(title, author, pages, hasRead = false) {
@@ -7,7 +28,7 @@ class Book {
         this.author = author;
         this.pages = pages;
         this.hasRead = hasRead;
-        // this.container = null;
+        this.container = null;
     }
 }
 
@@ -26,7 +47,6 @@ function clearDOM() {
 function updateDOM() {
     clearDOM();
     myLibrary.forEach(e => {
-        console.log(`test`);
         let book_DOM = {
             container: document.createElement(`div`),
             title: document.createElement(`h1`),
@@ -47,6 +67,8 @@ function updateDOM() {
         book_DOM.container.appendChild(book_DOM.author);
         book_DOM.container.appendChild(book_DOM.pages);
         book_DOM.container.appendChild(book_DOM.hasRead);
+
+        e.container = book_DOM.container;
 
         container.appendChild(book_DOM.container);
     })

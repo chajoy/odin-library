@@ -13,12 +13,14 @@
 }
 
 body {
+    color: #1f4037;
     -webkit-font-smoothing: antialiased;
     font-family: "Roboto", sans-serif;
     background: #1f4037;
     background: -webkit-linear-gradient(to top, #99f2c8, #1f4037);
     background: linear-gradient(to top, #99f2c8, #1f4037);
     min-height: 100vh;
+    user-select: none;
 }
 
 img,
@@ -60,25 +62,100 @@ h6 {
     text-wrap: balance;
 }
 
+input {
+    padding: 10px;
+}
+
+header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background: #1f4037;
+    padding: 20px;
+    border-bottom: 3px solid rgb(255, 255, 255);
+    z-index: 1;
+}
+
+button {
+    border: none;
+    background: none;
+    border: 3px solid white;
+    padding: 20px 30px;
+    color: white;
+    transition: background .5s;
+}
+
+button:hover {
+    background-color: white;
+    color: #1f4037;
+    cursor: pointer;
+}
+
 .container {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
     gap: 20px;
     padding: 20px;
+    margin-top: 108px;
 }
 
 .book {
     background-color: var(--book-colour);
     color: white;
     padding: 20px;
-    border-radius: 20px;
     border: 5px solid white;
     display: grid;
     gap: 10px;
     text-align: right;
     min-height: 200px;
+    transition: transform .5s;
+}
+
+.book:hover {
+    transform: scale(1.1);
+    cursor: pointer;
 }
 
 .book h1 {
     font-size: 1.5rem;
+}
+
+.modal {
+    display: none;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+.modal-content {
+    display: grid;
+    gap: 20px;
+    background-color: white;
+    padding: 20px;
+    border: 1px solid black;
+    min-width: 500px;
+}
+
+.modal-content div {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.btn_addBook {
+    color: #1f4037;
+    border: 3px solid #1f4037;
+}
+
+.btn_addBook:hover {
+    background-color: #1f4037;
+    color: white;
 }
