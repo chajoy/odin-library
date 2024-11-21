@@ -23,8 +23,8 @@
     </div>
 
     <div class="modal" id="modal">
-        <form class="modal-content" onsubmit="submit_newBook(event)">
-            <h1>New Book</h1>
+        <form class="modal-content" onsubmit="submit_Book(event)">
+            <h1 id="modal_title"></h1>
             <input type="text" placeholder="title" id="input_title" required>
             <input type="text" placeholder="author" id="input_author" required>
             <div>
@@ -35,7 +35,7 @@
                 <label for="checkbox_hasRead">Has Read:</label>
                 <input type="checkbox" id="checkbox_hasRead">
             </div>
-            <button id="btn_addBook" class="btn_addBook">Add</button>
+            <button id="btn_submitBook" class="btn_submitBook">Confirm</button>
         </form>
     </div>
 

@@ -150,12 +150,12 @@ button:hover {
     gap: 20px;
 }
 
-.btn_addBook {
+.btn_submitBook {
     color: #1f4037;
     border: 3px solid #1f4037;
 }
 
-.btn_addBook:hover {
+.btn_submitBook:hover {
     background-color: #1f4037;
     color: white;
 }

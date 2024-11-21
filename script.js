@@ -1,40 +1,90 @@
 const container = document.querySelector(`#container`);
-const modal = document.getElementById(`modal`);
+const modal = {
+    container: document.getElementById(`modal`),
+    header: document.getElementById(`modal_title`),
+    title: document.getElementById(`input_title`),
+    author: document.getElementById(`input_author`),
+    pageCount: document.getElementById(`input_pageCount`),
+    hasRead: document.getElementById(`checkbox_hasRead`)
+}
 const myLibrary = [];
+let index_currentBook = 0;
 
 document.getElementById(`btn_newBook`).addEventListener(`click`, () => {
-    modal.style.display = `grid`;
+    modal.header.textContent = `New Book`;
+    updateModal(`content`, `reset`);
+    updateModal(`display`, `grid`);
+    index_currentBook = -1;
 })
 
-function submit_newBook(e) {
+function submit_Book(e) {
     e.preventDefault();
-    let title = document.getElementById(`input_title`).value;
-    let author = document.getElementById(`input_author`).value;
-    let pages = document.getElementById(`input_pageCount`).value;
-    let hasRead = document.getElementById(`checkbox_hasRead`).checked;
-    addBookToLibrary(title, author, pages, hasRead);
-    modal.style.display = `none`;
+    let title = modal.title.value;
+    let author = modal.author.value;
+    let pageCount = modal.pageCount.value;
+    let hasRead = modal.hasRead.checked;
+    if (index_currentBook >= 0) {
+        let index = index_currentBook;
+        editBookInLibrary(index, title, author, pageCount, hasRead);
+    } else {
+        addBookToLibrary(title, author, pageCount, hasRead);
+    }
+    updateModal(`display`, `none`);
+}
+
+function updateModal(option, value) {
+    switch (option) {
+        case `display`:
+            if (value === `grid`) {
+                modal.container.style.display = `grid`;
+            } else if (value === `none`) {
+                modal.container.style.display = `none`;
+            }
+            break;
+
+        case `content`:
+            if (value === `reset`) {
+                modal.title.value = ``;
+                modal.author.value = ``;
+                modal.pageCount.value = ``;
+                modal.hasRead.checked = false;
+            } else {
+                modal.title.value = myLibrary[value].title;
+                modal.author.value = myLibrary[value].author;
+                modal.pageCount.value = myLibrary[value].pageCount;
+                modal.hasRead.checked = myLibrary[value].hasRead;
+            }
+            break;
+    }
 }
 
 window.addEventListener(`click`, (e) => {
-    if (e.target === modal) {
-        modal.style.display = `none`;
+    if (e.target === modal.container) {
+        updateModal(`display`, `none`);
     }
 })
 
 class Book {
-    constructor(title, author, pages, hasRead = false) {
+    constructor(title, author, pageCount, hasRead = false) {
         this.title = title;
         this.author = author;
-        this.pages = pages;
+        this.pageCount = pageCount;
         this.hasRead = hasRead;
         this.container = null;
     }
 }
 
-function addBookToLibrary(title, author, pages, hasRead) {
-    let book = new Book(title, author, pages, hasRead);
+function addBookToLibrary(title, author, pageCount, hasRead) {
+    let book = new Book(title, author, pageCount, hasRead);
     myLibrary.push(book);
+    updateDOM();
+}
+
+function editBookInLibrary(index, title, author, pageCount, hasRead) {
+    myLibrary[index].title = title;
+    myLibrary[index].author = author;
+    myLibrary[index].pageCount = pageCount;
+    myLibrary[index].hasRead = hasRead;
     updateDOM();
 }
 
@@ -46,29 +96,36 @@ function clearDOM() {
 
 function updateDOM() {
     clearDOM();
-    myLibrary.forEach(e => {
+    myLibrary.forEach((book, index) => {
         let book_DOM = {
             container: document.createElement(`div`),
             title: document.createElement(`h1`),
             author: document.createElement(`h2`),
-            pages: document.createElement(`p`),
+            pageCount: document.createElement(`p`),
             hasRead: document.createElement(`p`),
         }
 
         book_DOM.container.classList.add(`book`);
         book_DOM.container.setAttribute(`id`, `book`);
 
-        book_DOM.title.textContent = e.title;
-        book_DOM.author.textContent = e.author;
-        book_DOM.pages.textContent = `Pages: ${e.pages}`;
-        book_DOM.hasRead.textContent = e.hasRead ? `Has read` : `Has not read`;
+        book_DOM.title.textContent = book.title;
+        book_DOM.author.textContent = book.author;
+        book_DOM.pageCount.textContent = `Page Count: ${book.pageCount}`;
+        book_DOM.hasRead.textContent = book.hasRead ? `Has read` : `Has not read`;
 
         book_DOM.container.appendChild(book_DOM.title);
         book_DOM.container.appendChild(book_DOM.author);
-        book_DOM.container.appendChild(book_DOM.pages);
+        book_DOM.container.appendChild(book_DOM.pageCount);
         book_DOM.container.appendChild(book_DOM.hasRead);
 
-        e.container = book_DOM.container;
+        book.container = book_DOM.container;
+
+        book_DOM.container.addEventListener(`click`, () => {
+            modal.header.textContent = `Edit Book`;
+            index_currentBook = index;
+            updateModal(`content`, index_currentBook);
+            updateModal(`display`, `grid`);
+        });
 
         container.appendChild(book_DOM.container);
     })
