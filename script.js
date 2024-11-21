@@ -10,26 +10,14 @@ const modal = {
 const myLibrary = [];
 let index_currentBook = 0;
 
-document.getElementById(`btn_newBook`).addEventListener(`click`, () => {
-    modal.header.textContent = `New Book`;
-    updateModal(`content`, `reset`);
-    updateModal(`display`, `grid`);
-    index_currentBook = -1;
-})
-
-function submit_Book(e) {
-    e.preventDefault();
-    let title = modal.title.value;
-    let author = modal.author.value;
-    let pageCount = modal.pageCount.value;
-    let hasRead = modal.hasRead.checked;
-    if (index_currentBook >= 0) {
-        let index = index_currentBook;
-        editBookInLibrary(index, title, author, pageCount, hasRead);
-    } else {
-        addBookToLibrary(title, author, pageCount, hasRead);
+class Book {
+    constructor(title, author, pageCount, hasRead = false) {
+        this.title = title;
+        this.author = author;
+        this.pageCount = pageCount;
+        this.hasRead = hasRead;
+        this.container = null;
     }
-    updateModal(`display`, `none`);
 }
 
 function updateModal(option, value) {
@@ -59,36 +47,6 @@ function updateModal(option, value) {
         default:
             break;
     }
-}
-
-window.addEventListener(`click`, (e) => {
-    if (e.target === modal.container) {
-        updateModal(`display`, `none`);
-    }
-})
-
-class Book {
-    constructor(title, author, pageCount, hasRead = false) {
-        this.title = title;
-        this.author = author;
-        this.pageCount = pageCount;
-        this.hasRead = hasRead;
-        this.container = null;
-    }
-}
-
-function addBookToLibrary(title, author, pageCount, hasRead) {
-    let book = new Book(title, author, pageCount, hasRead);
-    myLibrary.push(book);
-    updateDOM();
-}
-
-function editBookInLibrary(index, title, author, pageCount, hasRead) {
-    myLibrary[index].title = title;
-    myLibrary[index].author = author;
-    myLibrary[index].pageCount = pageCount;
-    myLibrary[index].hasRead = hasRead;
-    updateDOM();
 }
 
 function clearDOM() {
@@ -133,6 +91,48 @@ function updateDOM() {
         container.appendChild(book_DOM.container);
     })
 }
+
+function addBookToLibrary(title, author, pageCount, hasRead) {
+    let book = new Book(title, author, pageCount, hasRead);
+    myLibrary.push(book);
+    updateDOM();
+}
+
+function editBookInLibrary(index, title, author, pageCount, hasRead) {
+    myLibrary[index].title = title;
+    myLibrary[index].author = author;
+    myLibrary[index].pageCount = pageCount;
+    myLibrary[index].hasRead = hasRead;
+    updateDOM();
+}
+
+function submit_Book(e) {
+    e.preventDefault();
+    let title = modal.title.value;
+    let author = modal.author.value;
+    let pageCount = modal.pageCount.value;
+    let hasRead = modal.hasRead.checked;
+    if (index_currentBook >= 0) {
+        let index = index_currentBook;
+        editBookInLibrary(index, title, author, pageCount, hasRead);
+    } else {
+        addBookToLibrary(title, author, pageCount, hasRead);
+    }
+    updateModal(`display`, `none`);
+}
+
+document.getElementById(`btn_newBook`).addEventListener(`click`, () => {
+    modal.header.textContent = `New Book`;
+    updateModal(`content`, `reset`);
+    updateModal(`display`, `grid`);
+    index_currentBook = -1;
+})
+
+window.addEventListener(`click`, (e) => {
+    if (e.target === modal.container) {
+        updateModal(`display`, `none`);
+    }
+})
 
 addBookToLibrary(`Dune`, `Frank Herbert`, 577, true);
 addBookToLibrary(`1984`, `George Orwell`, 328, true);
