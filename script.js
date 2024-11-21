@@ -17,8 +17,16 @@ function addBookToLibrary(title, author, pages, hasRead) {
     updateDOM();
 }
 
+function clearDOM() {
+    document.querySelectorAll(`#container #book`).forEach(e => {
+        e.remove();
+    })
+}
+
 function updateDOM() {
+    clearDOM();
     myLibrary.forEach(e => {
+        console.log(`test`);
         let book_DOM = {
             container: document.createElement(`div`),
             title: document.createElement(`h1`),
@@ -39,9 +47,6 @@ function updateDOM() {
         book_DOM.container.appendChild(book_DOM.author);
         book_DOM.container.appendChild(book_DOM.pages);
         book_DOM.container.appendChild(book_DOM.hasRead);
-
-
-        e.container = book_DOM.container;
 
         container.appendChild(book_DOM.container);
     })
