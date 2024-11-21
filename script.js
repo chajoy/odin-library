@@ -18,6 +18,9 @@ class Book {
         this.hasRead = hasRead;
         this.container = null;
     }
+    toggle_hasRead() {
+        this.hasRead = !this.hasRead;
+    }
 }
 
 function updateModal(option, value) {
@@ -63,26 +66,34 @@ function updateDOM() {
             title: document.createElement(`h1`),
             author: document.createElement(`h2`),
             pageCount: document.createElement(`p`),
-            hasRead: document.createElement(`p`),
+            btn_hasRead: document.createElement(`button`),
             btn_delete: document.createElement(`img`)
         }
 
         book_DOM.container.classList.add(`book`);
         book_DOM.container.setAttribute(`id`, `book`);
 
+        if (myLibrary[index].hasRead === true) {
+            book_DOM.container.style.backgroundColor = `#367464`;
+        } else {
+            book_DOM.container.style.backgroundColor = `grey`;
+        }
+
         book_DOM.btn_delete.setAttribute(`src`, `img/trash3-fill.svg`);
         book_DOM.btn_delete.setAttribute(`id`, `btn_delete`);
+
+        book_DOM.btn_hasRead.setAttribute(`id`, `btn_hasRead`);
 
         book_DOM.title.textContent = book.title;
         book_DOM.author.textContent = book.author;
         book_DOM.pageCount.textContent = `Page Count: ${book.pageCount}`;
-        book_DOM.hasRead.textContent = book.hasRead ? `Has read` : `Has not read`;
+        book_DOM.btn_hasRead.textContent = `Toggle Read`;
 
         book_DOM.container.appendChild(book_DOM.btn_delete);
         book_DOM.container.appendChild(book_DOM.title);
         book_DOM.container.appendChild(book_DOM.author);
         book_DOM.container.appendChild(book_DOM.pageCount);
-        book_DOM.container.appendChild(book_DOM.hasRead);
+        book_DOM.container.appendChild(book_DOM.btn_hasRead);
 
         book.container = book_DOM.container;
 
@@ -90,6 +101,9 @@ function updateDOM() {
             if (e.target.getAttribute(`id`) === `btn_delete`) {
                 myLibrary.splice(index, 1);
                 book_DOM.container.remove();
+                updateDOM();
+            } else if (e.target.getAttribute(`id`) === `btn_hasRead`) {
+                myLibrary[index].toggle_hasRead();
                 updateDOM();
             } else {
                 modal.header.textContent = `Edit Book`;
