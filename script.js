@@ -64,16 +64,21 @@ function updateDOM() {
             author: document.createElement(`h2`),
             pageCount: document.createElement(`p`),
             hasRead: document.createElement(`p`),
+            btn_delete: document.createElement(`img`)
         }
 
         book_DOM.container.classList.add(`book`);
         book_DOM.container.setAttribute(`id`, `book`);
+
+        book_DOM.btn_delete.setAttribute(`src`, `img/trash3-fill.svg`);
+        book_DOM.btn_delete.setAttribute(`id`, `btn_delete`);
 
         book_DOM.title.textContent = book.title;
         book_DOM.author.textContent = book.author;
         book_DOM.pageCount.textContent = `Page Count: ${book.pageCount}`;
         book_DOM.hasRead.textContent = book.hasRead ? `Has read` : `Has not read`;
 
+        book_DOM.container.appendChild(book_DOM.btn_delete);
         book_DOM.container.appendChild(book_DOM.title);
         book_DOM.container.appendChild(book_DOM.author);
         book_DOM.container.appendChild(book_DOM.pageCount);
@@ -81,11 +86,17 @@ function updateDOM() {
 
         book.container = book_DOM.container;
 
-        book_DOM.container.addEventListener(`click`, () => {
-            modal.header.textContent = `Edit Book`;
-            index_currentBook = index;
-            updateModal(`content`, index_currentBook);
-            updateModal(`display`, `grid`);
+        book_DOM.container.addEventListener(`click`, (e) => {
+            if (e.target.getAttribute(`id`) === `btn_delete`) {
+                myLibrary.splice(index, 1);
+                book_DOM.container.remove();
+                updateDOM();
+            } else {
+                modal.header.textContent = `Edit Book`;
+                index_currentBook = index;
+                updateModal(`content`, index_currentBook);
+                updateModal(`display`, `grid`);
+            }
         });
 
         container.appendChild(book_DOM.container);
