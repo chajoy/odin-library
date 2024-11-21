@@ -55,6 +55,9 @@ function updateModal(option, value) {
                 modal.hasRead.checked = myLibrary[value].hasRead;
             }
             break;
+
+        default:
+            break;
     }
 }
 
