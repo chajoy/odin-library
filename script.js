@@ -18,9 +18,10 @@ class Book {
         this.hasRead = hasRead;
         this.container = null;
     }
-    toggle_hasRead() {
-        this.hasRead = !this.hasRead;
-    }
+}
+
+Book.prototype.toggle_hasRead = function () {
+    this.hasRead = !this.hasRead;
 }
 
 function updateModal(option, value) {
