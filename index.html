@@ -16,28 +16,33 @@
 <body>
     <header>
         <button id="btn_newBook">New Book</button>
+        <p>Has Read</p>
+        <div></div>
+        <p>Has Not Read</p>
+        <div></div>
     </header>
 
-    <div class="container" id="container">
+    <main>
 
-    </div>
-
-    <div class="modal" id="modal">
-        <form class="modal-content" onsubmit="submit_Book(event)">
-            <h1 id="modal_title"></h1>
-            <input type="text" placeholder="title" id="input_title" required>
-            <input type="text" placeholder="author" id="input_author" required>
-            <div>
-                <label for="input_pageCount">Page Count:</label>
-                <input type="number" id="input_pageCount">
-            </div>
-            <div>
-                <label for="checkbox_hasRead">Has Read:</label>
-                <input type="checkbox" id="checkbox_hasRead">
-            </div>
-            <button id="btn_submitBook" class="btn_submitBook">Confirm</button>
-        </form>
-    </div>
+        <div class="container" id="container">
+        </div>
+        <div class="modal" id="modal">
+            <form class="modal-content" onsubmit="submit_Book(event)">
+                <h1 id="modal_title"></h1>
+                <input type="text" placeholder="title" id="input_title" required>
+                <input type="text" placeholder="author" id="input_author" required>
+                <div>
+                    <label for="input_pageCount">Page Count:</label>
+                    <input type="number" id="input_pageCount">
+                </div>
+                <div>
+                    <label for="checkbox_hasRead">Has Read:</label>
+                    <input type="checkbox" id="checkbox_hasRead">
+                </div>
+                <button id="btn_submitBook" class="btn_submitBook">Confirm</button>
+            </form>
+        </div>
+    </main>
 
     <script src=" script.js"></script>
 </body>

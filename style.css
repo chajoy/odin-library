@@ -67,7 +67,10 @@ input {
 }
 
 header {
+    display: flex;
+    align-items: center;
     position: fixed;
+    gap: 20px;
     top: 0;
     left: 0;
     width: 100%;
@@ -75,6 +78,26 @@ header {
     padding: 20px;
     border-bottom: 3px solid rgb(255, 255, 255);
     z-index: 1;
+    max-height: 108px;
+    color: white;
+}
+
+header div {
+    outline: 3px solid white;
+    height: 40px;
+    width: 40px;
+}
+
+header button {
+    margin-right: auto;
+}
+
+header div:nth-of-type(1) {
+    background-color: var(--book-colour);
+}
+
+header div:nth-of-type(2) {
+    background-color: grey;
 }
 
 button {
@@ -92,12 +115,15 @@ button:hover {
     cursor: pointer;
 }
 
+main {
+    margin-top: 108px;
+}
+
 .container {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
     gap: 20px;
     padding: 20px;
-    margin-top: 108px;
 }
 
 .book {
@@ -108,7 +134,7 @@ button:hover {
     display: grid;
     gap: 10px;
     text-align: right;
-    min-height: 200px;
+    min-height: 300px;
     transition: transform .5s;
 }
 
